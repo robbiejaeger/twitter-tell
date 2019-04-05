@@ -20,7 +20,7 @@ function sendEmail() {
 }
 
 function searchTweets() {
-  const searchQuery = 'from:RudeMechanic lump hammers OR hammers';
+  const searchQuery = 'from:RudeMechanic lump hammer OR hammers';
   const sinceID = '1113872999055331328';
 
   const apiURL = 'https://api.twitter.com/1.1/search/tweets.json';
