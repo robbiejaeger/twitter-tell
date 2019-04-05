@@ -1,5 +1,6 @@
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
+const fetch = require('node-fetch');
 
 function sendEmail() {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -17,4 +18,13 @@ function sendEmail() {
   sgMail.send(msg);
 }
 
-sendEmail();
+function searchTweets() {
+  const twitterHandle = 'RudeMechanic';
+  const itemToSearch = 'Lump Hammer';
+
+  fetch('https://www.google.com')
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
+}
+
+searchTweets();
