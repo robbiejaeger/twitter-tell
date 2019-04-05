@@ -1,6 +1,7 @@
-require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
 const fetch = require('node-fetch');
+
+require('dotenv').config();
 
 function sendEmail() {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -19,10 +20,18 @@ function sendEmail() {
 }
 
 function searchTweets() {
-  const twitterHandle = 'RudeMechanic';
-  const itemToSearch = 'Lump Hammer';
+  const searchQuery = 'from:RudeMechanic lump hammers OR hammers';
+  const sinceID = '1113872999055331328';
 
-  fetch('https://www.google.com')
+  const apiURL = 'https://api.twitter.com/1.1/search/tweets.json';
+  const headers = new Headers({
+
+  });
+
+  fetch(`${apiURL}?q=${searchQuery}&since_id=${sinceID}`, {
+      method: 'GET',
+      headers: headers
+    })
     .then(response => console.log(response))
     .catch(err => console.error(err));
 }
