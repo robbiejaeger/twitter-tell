@@ -21,11 +21,17 @@ function sendEmail() {
 }
 
 (async () => {
-  const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
-  const page = await browser.newPage();
-  await page.goto('https://twitter.com/RudeMechanic');
+  let browser = null;
+  let page = null;
 
-  // Get the "viewport" of the page, as reported by the page.
+  try {
+    browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
+    page = await browser.newPage();
+    await page.goto('https://twitter.com/RudeMechanic');
+  } catch(err) {
+    console.log(err);
+  }
+
   const hammerTweets = await page.evaluate(() => {
     const timelineTweets = [...document.querySelector('ol.stream-items').children];
     const tweetTexts = timelineTweets.map(tweet => {
