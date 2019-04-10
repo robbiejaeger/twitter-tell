@@ -1,5 +1,6 @@
 const sgMail = require('@sendgrid/mail');
 const fetch = require('node-fetch');
+const nightmare = require('nightmare');
 
 require('dotenv').config();
 
@@ -20,19 +21,11 @@ function sendEmail() {
 }
 
 function searchTweets() {
-  const searchQuery = 'from:RudeMechanic lump hammer OR hammers';
-  const sinceID = '1113872999055331328';
+  // const searchQuery = 'from:RudeMechanic lump hammer OR hammers';
 
-  const apiURL = 'https://api.twitter.com/1.1/search/tweets.json';
-  const headers = new Headers({
-
-  });
-
-  fetch(`${apiURL}?q=${searchQuery}&since_id=${sinceID}`, {
-      method: 'GET',
-      headers: headers
-    })
-    .then(response => console.log(response))
+  fetch('https://twitter.com/RudeMechanic')
+    .then(response => response.text())
+    .then(text => console.log(text))
     .catch(err => console.error(err));
 }
 
