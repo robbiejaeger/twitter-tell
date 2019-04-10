@@ -1,6 +1,5 @@
 const sgMail = require('@sendgrid/mail');
 const fetch = require('node-fetch');
-const Nightmare = require('nightmare');
 
 require('dotenv').config();
 
@@ -21,30 +20,18 @@ function sendEmail() {
 }
 
 function searchTweets() {
-  const nightmare = Nightmare();
+  // 'https://twitter.com/RudeMechanic'
 
-  nightmare
-    .goto('https://twitter.com/RudeMechanic')
-    .wait('#timeline')
-    .evaluate(() => {
-      const timelineTweets = [...document.querySelector('ol.stream-items').children];
-      const tweetTexts = timelineTweets.map(tweet => {
-        return tweet.querySelector('p.tweet-text').innerText;
-      })
+  // const timelineTweets = [...document.querySelector('ol.stream-items').children];
+  // const tweetTexts = timelineTweets.map(tweet => {
+  //   return tweet.querySelector('p.tweet-text').innerText;
+  // })
 
-      const hammerTweets = tweetTexts.filter(text => {
-        return text.toLowerCase().includes('lump')
-      })
+  // const hammerTweets = tweetTexts.filter(text => {
+  //   return text.toLowerCase().includes('lump')
+  // })
 
-      return hammerTweets;
-    })
-    .end()
-    .then(result => {
-      if (result.length) {
-        sendEmail();
-      }
-    })
-    .catch(err => console.error(err));
+  // return hammerTweets;
 }
 
 searchTweets();
