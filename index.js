@@ -21,8 +21,8 @@ function sendEmail() {
 }
 
 (async () => {
-  let browser = null;
-  let page = null;
+  let browser;
+  let page;
 
   try {
     browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
@@ -36,13 +36,11 @@ function sendEmail() {
     const timelineTweets = [...document.querySelector('ol.stream-items').children];
     const tweetTexts = timelineTweets.map(tweet => {
       return tweet.querySelector('p.tweet-text').innerText;
-    })
+    });
 
-    const hammerTweets = tweetTexts.filter(text => {
-      return text.toLowerCase().includes('lump')
-    })
-
-    return hammerTweets;
+    return tweetTexts.filter(text => {
+      return text.toLowerCase().includes('lump');
+    });
   });
 
   await browser.close();
