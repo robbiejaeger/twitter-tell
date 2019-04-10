@@ -1,5 +1,4 @@
 const sgMail = require('@sendgrid/mail');
-const fetch = require('node-fetch');
 const puppeteer = require('puppeteer');
 
 require('dotenv').config();
