@@ -21,7 +21,6 @@ function sendEmail() {
 }
 
 function searchTweets() {
-  // const searchQuery = 'from:RudeMechanic lump hammer OR hammers';
   const nightmare = Nightmare();
 
   nightmare
@@ -44,9 +43,6 @@ function searchTweets() {
       console.log(result);
     })
     .catch(err => console.error(err));
-
-
-  
 }
 
 searchTweets();
