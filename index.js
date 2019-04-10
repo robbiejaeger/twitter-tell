@@ -1,5 +1,6 @@
 const sgMail = require('@sendgrid/mail');
 const fetch = require('node-fetch');
+const puppeteer = require('puppeteer');
 
 require('dotenv').config();
 
@@ -19,19 +20,28 @@ function sendEmail() {
   sgMail.send(msg);
 }
 
-function searchTweets() {
-  // 'https://twitter.com/RudeMechanic'
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://twitter.com/RudeMechanic');
 
-  // const timelineTweets = [...document.querySelector('ol.stream-items').children];
-  // const tweetTexts = timelineTweets.map(tweet => {
-  //   return tweet.querySelector('p.tweet-text').innerText;
-  // })
+  // Get the "viewport" of the page, as reported by the page.
+  const hammerTweets = await page.evaluate(() => {
+    const timelineTweets = [...document.querySelector('ol.stream-items').children];
+    const tweetTexts = timelineTweets.map(tweet => {
+      return tweet.querySelector('p.tweet-text').innerText;
+    })
 
-  // const hammerTweets = tweetTexts.filter(text => {
-  //   return text.toLowerCase().includes('lump')
-  // })
+    const hammerTweets = tweetTexts.filter(text => {
+      return text.toLowerCase().includes('lump')
+    })
 
-  // return hammerTweets;
-}
+    return hammerTweets;
+  });
 
-searchTweets();
+  await browser.close();
+
+  if (hammerTweets.length) {
+    sendEmail();
+  }
+})();
