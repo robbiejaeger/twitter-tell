@@ -9,7 +9,7 @@ function sendEmail() {
 
   const msg = {
     to: 'jaeger.rob@gmail.com',
-    from: 'lumphammer@twittertell.com',
+    from: 'robbie@turing.io',
     subject: 'New Lump Hammers Available',
     html: `<h1>Lump Hammer Alert</h1>
            <p>See if there are some new lump hammers available by Crucible Tools</p>
@@ -40,7 +40,9 @@ function searchTweets() {
     })
     .end()
     .then(result => {
-      console.log(result);
+      if (result.length) {
+        sendEmail();
+      }
     })
     .catch(err => console.error(err));
 }
