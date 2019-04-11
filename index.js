@@ -35,7 +35,7 @@ function sendEmail() {
     const timelineTweets = [...document.querySelector('ol.stream-items').children];
     const tweetTexts = timelineTweets.map(tweet => {
       return tweet.querySelector('p.tweet-text').innerText;
-    });
+    }).slice(0,5);
 
     return tweetTexts.filter(text => {
       return text.toLowerCase().includes('lump');
