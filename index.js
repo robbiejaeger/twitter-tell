@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 
 require('dotenv').config();
 
-function sendEmail() {
+function sendFoundEmail() {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
@@ -17,6 +17,27 @@ function sendEmail() {
   };
 
   sgMail.send(msg);
+}
+
+function sendStillSearchingEmail() {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+  const msg = {
+    to: 'jaeger.rob@gmail.com',
+    from: 'robbie@turing.io',
+    subject: 'Still Looking For Hammer',
+    html: `<p>Still OK scraping Twitter.</p>`
+  };
+
+  sgMail.send(msg); 
+}
+
+function getCurrentTime() {
+  const currentUTC = new Date;
+  const hour = currentUTC.getUTCHours();
+  const minutes = currentUTC.getUTCMinutes();
+
+  return {hour, minutes};
 }
 
 (async () => {
@@ -43,8 +64,11 @@ function sendEmail() {
   });
 
   await browser.close();
+  const {hour, minutes} = getCurrentTime();
 
   if (hammerTweets.length) {
-    sendEmail();
+    sendFoundEmail();
+  } else if ( hour < 1 && minutes <= 10 ) {
+    sendStillSearchingEmail();
   }
 })();
