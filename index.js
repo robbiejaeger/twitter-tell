@@ -13,7 +13,7 @@ function sendFoundEmail() {
     html: `<h1>Lump Hammer Alert</h1>
            <h3>See if there are some new lump hammers available by Crucible Tools!</h3>
            <p><a href="https://twitter.com/RudeMechanic" target="_blank">Chris Schwarz Twitter</a></p>
-           <p><a href="https://crucibletool.com/products/crucible-lump-hammer" target="_blank">Crucible Tool Lump Hammer</a></p>`
+           <p><a href="https://lostartpress.com/collections/tools/products/lump-hammer" target="_blank">Crucible Tool Lump Hammer</a></p>`
   };
 
   sgMail.send(msg);
@@ -56,7 +56,7 @@ function getCurrentTime() {
     const timelineTweets = [...document.querySelector('ol.stream-items').children];
     const tweetTexts = timelineTweets.map(tweet => {
       return tweet.querySelector('p.tweet-text').innerText;
-    }).slice(0,5);
+    }).slice(0,1);
 
     return tweetTexts.filter(text => {
       return text.toLowerCase().includes('lump');
