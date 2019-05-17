@@ -7,8 +7,8 @@ function sendFoundEmail() {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
-    to: 'jaeger.rob@gmail.com',
-    from: 'robbie@turing.io',
+    to: process.env.TO_EMAIL,
+    from: process.env.FROM_EMAIL,
     subject: 'New Lump Hammer Tweet',
     html: `<h1>Lump Hammer Alert</h1>
            <h3>See if there are some new lump hammers available by Crucible Tools!</h3>
@@ -23,8 +23,8 @@ function sendStillSearchingEmail() {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
-    to: 'jaeger.rob@gmail.com',
-    from: 'robbie@turing.io',
+    to: process.env.TO_EMAIL,
+    from: process.env.FROM_EMAIL,
     subject: 'Still Looking For Hammer',
     html: `<p>Still OK scraping Twitter.</p>`
   };
